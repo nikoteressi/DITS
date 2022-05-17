@@ -1,0 +1,60 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="/fragments/header"></div>
+
+<main>
+    <section class="result container">
+        <div class="row ps-3 pe-3">
+            <div class="d-flex align-items-baseline title ps-3">
+                <h2 class="fs-1" th:text="'Topic ' + ${session.topicId} + '. ' + ${session.topicName}">Topic
+                    ID and Name</h2>
+                <h3 class="fs-3" th:text="'/' + ${session.testName}">Java 2 Fundamentals</h3>
+            </div>
+        </div>
+        <div class="result__container">
+            <div class="row justify-content-center result__head">
+                <div class=" col result__title"><h3>Your result</h3></div>
+            </div>
+            <div class="row result__body">
+                <div class="container">
+                    <div class="d-flex flex-column align-items-center">
+                        <span class="right-Answers-Percent" th:utext="${rightAnswersPercent} + '%'">Right answer
+                            percent</span>
+                        <span class="answers-ratio"
+                           th:utext="'(' + ${quantityOfRightAnswers} + '/' + ${session.questionSize} + ')'">The ratio
+                            of correct to incorrect answers </span>
+                        <div class="result-page-footer-box">
+                            <div class="answers-element-block">
+                                <div class="answers-circle-text-block">
+                                    <div class="circle align-self-center me-3"><img
+                                            src="../../static/img/green-circle.png"
+                                            th:src="@{/img/green-circle.png}"></div>
+                                    <div class="answers-type"><p> Correct answers</p></div>
+                                </div>
+                                <div class="amount-of-answers" th:utext="${quantityOfRightAnswers}"></div>
+                            </div>
+                            <div class="answers-element-block">
+                                <div class="answers-circle-text-block">
+                                    <div class="circle align-self-center me-3"><img
+                                            src="../../static/img/orange-circle.png"
+                                            th:src="@{/img/orange-circle.png}"></div>
+                                    <div class="answers-type"><p>Wrong answers</p></div>
+                                </div>
+                                <div class="amount-of-answers"
+                                     th:utext="${session.questionSize} - ${quantityOfRightAnswers}"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <a th:href="@{/user/personal-statistic}" role="button" class="btn btn-lg w-75 mt-5 ">
+                Show all my statistics
+            </a>
+        </div>
+    </section>
+</main>
+<div th:replace="/fragments/footer"></div>
+<div th:replace="/fragments/modals"></div>
+
