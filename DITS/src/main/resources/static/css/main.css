@@ -198,6 +198,7 @@ body {
     border-radius: 10px;
     background: #FFFFFF;
     overflow: hidden;
+    margin-top: 4%;
 }
 
 .result__head {
@@ -327,15 +328,16 @@ body {
     width: 40px;
 }
 
-.question__item {
+.question__item, .user-detail-item {
     margin-left: 0;
     position: relative;
 }
 
-.question__item .form-input {
+.question__item, .user-detail-item .form-input {
     color: #777;
     font-size: 14px;
 }
+
 
 .test .result-row {
     cursor: pointer;
@@ -484,8 +486,12 @@ body {
     margin-bottom: 0;
 }
 
-.question__list {
+.question__list, .user-detail-info {
     margin-top: 14px;
+}
+
+.user-detail-info {
+    border-top: 1px solid green;
 }
 
 .question-modal__list {
@@ -618,7 +624,7 @@ body {
     color: #000000;
 }
 
-.detail__list .test {
+.detail__list .test, .users__item {
     margin-top: 30px;
     padding: 14px 24px 14px 30px;
     background: #fff;
@@ -817,6 +823,40 @@ body {
     background-color: #17ac19;
 }
 
+.btn-cancel {
+    background-color: #F78F0F;
+    color: #fff;
+    font-size: 24px;
+    font-weight: 500;
+    border-radius: 10px;
+    padding: 2% 13%;
+}
+
+.btn-cancel:hover {
+    background-color: #ba6902;
+}
+
+.btn-cancel:focus {
+    background-color: #f69417;
+}
+
+.btn-confirm {
+    background-color: #008f02;
+    color: #fff;
+    font-size: 24px;
+    font-weight: 500;
+    border-radius: 10px;
+    padding: 2% 13%;
+}
+
+.btn-confirm:hover {
+    background-color: #007802;
+}
+
+.btn-confirm:focus {
+    background-color: #17ac19;
+}
+
 .btn-gray {
     background-color: #f2f2f2;
     color: #008F02;
@@ -860,6 +900,7 @@ body {
     font-weight: bold;
     font-size: 36px;
     color: #000000;
+    width: 50%;
 }
 
 .users__list {
@@ -870,6 +911,11 @@ body {
     font-size: 36px;
     line-height: 54px;
     margin: 30px 0;
+}
+
+.users__item {
+    display: flex;
+    justify-content: space-between;
 }
 
 .users__item:not(:first-child) {
@@ -918,6 +964,7 @@ body {
 .user-info__name {
     font-size: 18px;
     color: #007802;
+    width: 32%;
 }
 
 .user-info__email {
@@ -973,43 +1020,6 @@ body {
 
 .createUserModal__button {
     margin-top: 46px;
-    padding: 7px;
-}
-
-.deleteUserModal__header {
-    margin: 0;
-    padding-top: 20px;
-}
-
-.deleteUserModal__title {
-    font-size: 30px;
-    line-height: 45px;
-    color: #000000;
-}
-
-.deleteUserModal__content {
-    padding: 30px;
-}
-
-.deleteUserModal__text {
-    margin-top: 30px;
-    font-size: 24px;
-    line-height: 36px;
-    color: #141414
-}
-
-.deleteUserModal__text_small {
-    margin-top: 35px;
-    font-weight: 300;
-    font-size: 18px;
-    line-height: 21px;
-}
-
-.deleteUserModal__button-group {
-    margin-top: 50px;
-}
-
-.deleteUserModal__button {
     padding: 7px;
 }
 
@@ -1179,19 +1189,35 @@ main {
 main .title {
     font-weight: 600;
     border-bottom: 2px solid #008f02;
-    padding-bottom: 15px;
+    padding-bottom: 2%;
     display: flex;
     flex-wrap: wrap;
     align-items: flex-end;
     margin-bottom: 16px;
+    padding-top: 5%;
 }
 
 main .title h1 {
-    font-size: 24px;
-    font-weight: 500;
-    color: #008f02;
+    font-weight: 700;
+    color: #000000;
+    font-size: 30px;
+    line-height: 54px;
     padding-right: 8px;
-    line-height: 100%;
+}
+
+.no-passed-test {
+    padding-top: 2%;
+    font-size: 18pt;
+    font-weight: 400;
+}
+
+.user-param {
+    display: flex;
+    justify-content: start;
+}
+
+.user-param > span {
+    width: 10%;
 }
 
 main .title h3 {
@@ -1202,7 +1228,7 @@ main .title h3 {
 }
 
 main section {
-    padding-top: 70px;
+    /*padding-top: 70px;*/
     padding-bottom: 100px;
 }
 
@@ -1344,6 +1370,14 @@ main .form-select:focus {
     transition: all .3s;
 }
 
+.add-user__button {
+    transition: all .3s;
+    border: 1px solid #777777;
+    border-radius: 10px;
+    padding: 13px 26px;
+    margin-right: 18%;
+}
+
 .answer__delete-button {
     position: absolute;
     top: 40px;
@@ -1476,5 +1510,143 @@ main .form-select:focus {
 
     .createUserModal__button {
         margin-top: 25px;
+    }
+}
+
+.confirmation-modal-title {
+    font-weight: 600;
+    font-size: 28pt;
+    line-height: 45pt;
+    text-align: center;
+    margin-bottom: 3%;
+    color: #000000;
+    border-bottom: 1px solid green;
+}
+
+.confirmation-modal-question {
+    font-weight: 400;
+    font-size: 17pt;
+    text-align: center;
+    margin-bottom: 3%;
+    color: #141414;
+}
+
+.confirmation-modal-additional {
+    font-weight: 300;
+    font-size: 14pt;
+    line-height: 20pt;
+    text-align: center;
+    text-decoration: underline;
+    margin-bottom: 10%;
+    color: #141414;
+}
+
+.confirmation-modal {
+    width: 65%;
+    margin: 0 auto;
+}
+
+.loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid green; /* green */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    margin: 7% auto;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+svg {
+    height: 145px;
+    display: block;
+    margin: 8% auto;
+}
+
+.path {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 0;
+
+&
+.circle {
+    -webkit-animation: dash .9s ease-in-out;
+    animation: dash .9s ease-in-out;
+}
+
+&
+.line {
+    stroke-dashoffset: 1000;
+    -webkit-animation: dash .9s .35s ease-in-out forwards;
+    animation: dash .9s .35s ease-in-out forwards;
+}
+
+&
+.check {
+    stroke-dashoffset: -100;
+    -webkit-animation: dash-check .9s .35s ease-in-out forwards;
+    animation: dash-check .9s .35s ease-in-out forwards;
+}
+
+}
+
+svg p {
+    text-align: center;
+    margin: 20px 0 60px;
+    font-size: 1.25em;
+
+&
+.success {
+    color: #73AF55;
+}
+
+&
+.error {
+    color: #D06079;
+}
+
+}
+
+
+@-webkit-keyframes dash {
+    0% {
+        stroke-dashoffset: 1000;
+    }
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes dash {
+    0% {
+        stroke-dashoffset: 1000;
+    }
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+@-webkit-keyframes dash-check {
+    0% {
+        stroke-dashoffset: -100;
+    }
+    100% {
+        stroke-dashoffset: 900;
+    }
+}
+
+@keyframes dash-check {
+    0% {
+        stroke-dashoffset: -100;
+    }
+    100% {
+        stroke-dashoffset: 900;
     }
 }

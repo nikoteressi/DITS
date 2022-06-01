@@ -30,7 +30,7 @@ public class ChooseTestController {
         } else {
             List<TestInfoDTO> list = new ArrayList<>();
             for (Test test : tests) {
-                if (test.getQuestions().size() != 0) {
+                if (!test.getQuestions().isEmpty()) {
                     TestInfoDTO testInfoDTO = convertToDTO(test);
                     list.add(testInfoDTO);
                 }

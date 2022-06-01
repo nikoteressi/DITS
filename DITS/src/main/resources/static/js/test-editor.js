@@ -19,9 +19,25 @@
  * 
  */
 
+let prevQuestion = null;
+const questionFormQuestion = document.getElementById('questionFormQuestion');
+const activateAddTestButton = document.getElementById('activateAddTestButton');
+const addTestForm = document.getElementById('addTestForm');
+const addAnswerButton = document.getElementById('addAnswerButton');
+const createQuestionForm = document.getElementById('createQuestionForm');
+const questionFormAnswerField = document.getElementById('questionFormAnswerField');
+let isNewQuestion = false;
+let currentTestId = null;
+let currentQuestionId = null;
+let isNewTest = true;
+const createNewTestButton = document.getElementById('createNewTestButton');
+
+const questionModalCloseButton = document.getElementById('questionModalCloseButton');
+
 function getQuestionHtml({name, description, testId, questions}) {
     const question = document.createElement('div');
     question.className = 'test';
+    question.dataset.id = testId;
     question.dataset.id = testId;
     question.innerHTML = `
     <div class="row">
@@ -167,7 +183,7 @@ async function deleteTheme(target) {
     updateThemesList(result);
 }
 
-function testThemeClichHandler(event) {
+function testThemeClickHandler(event) {
     event.preventDefault();
     const {target} = event;
     const themeItem = target.closest('.theme-item');
@@ -290,7 +306,7 @@ document.addEventListener('click', (event) => {
     const {target} = event;
     const targetClassList = target.classList;
     if (target.closest('#testThemes')) {
-        testThemeClichHandler(event);
+        testThemeClickHandler(event);
         deactivateAddThemeForm();
     } else if (target.closest('.sidebar-add-theme')) {
         addThemeClickHandler(target);
@@ -322,25 +338,6 @@ function refreshThemesValues() {
     setThemeEditMode(null);
     prevEditedThemeValue = null;
 }
-
-// TODO:
-// put all variables declaration in the top of the script
-
-let prevQuestion = null;
-const questionFormQuestion = document.getElementById('questionFormQuestion');
-const activateAddTestButton = document.getElementById('activateAddTestButton');
-const addTestForm = document.getElementById('addTestForm');
-const addAnswerButton = document.getElementById('addAnswerButton');
-const createQuestionForm = document.getElementById('createQuestionForm');
-const questionFormAnswerField = document.getElementById('questionFormAnswerField');
-let isNewQuestion = false;
-let currentTestId = null;
-let currentQuestionId = null;
-let isNewTest = true;
-const createNewTestButton = document.getElementById('createNewTestButton');
-
-const questionModalCloseButton = document.getElementById('questionModalCloseButton');
-
 
 async function addNewQuestion() {
     let data = null;
@@ -466,10 +463,8 @@ async function getAnswers(questionId) {
     const url = new URL("http://localhost:8080/admin/getAnswers");
     const params = {id: questionId};
     url.search = new URLSearchParams(params).toString();
-    response = await fetch(url);
-    const result = await response.json();
-
-    return result;
+    let response = await fetch(url);
+    return await response.json();
 }
 
 async function editQuestion() {

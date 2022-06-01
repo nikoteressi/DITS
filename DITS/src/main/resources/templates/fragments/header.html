@@ -24,7 +24,7 @@
                     <a th:case="'ROLE_USER'" th:href="@{/user/chooseTest}">
                         <img th:src="@{/img/logo.svg}" alt="devincubator logo">
                     </a>
-                    <a th:case="'ROLE_ADMIN'">
+                    <a th:case="'ROLE_ADMIN'" th:href="@{/admin/users-list}">
                         <img th:src="@{/img/logo.svg}" alt="devincubator logo">
                     </a>
                 </div>
@@ -40,6 +40,8 @@
                     <th:block th:if="${session.user != null}" th:switch="${session.user.getRole().getRoleName()}">
                         <th:block th:case="'ROLE_ADMIN'">
                             <div class="navbar-nav offset-lg-1 col-lg-5 justify-content-between">
+                                <a th:class="${title == 'User editor'} ? 'nav-link active' : 'nav-link'"
+                                   href="#" th:href="@{/admin/users-list}">Users</a>
                                 <a th:class="${title == 'Test editor'} ? 'nav-link active' : 'nav-link'"
                                    href="#" th:href="@{/admin/testBuilder}">Tests</a>
                                 <a th:class="${title == 'Statistic' || title == 'User statistic'} ? 'nav-link active' : 'nav-link'"

@@ -1,3 +1,4 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:replace="/fragments/header"></div>
 
 <main class="container">
@@ -12,8 +13,8 @@
                     <div class="d-flex gy-2 justify-content-between flex-wrap">
                         <select class="col-md-5 col-12 theme-select" name="theme" id="themeSelect">
                             <option value="" selected disabled>Student name</option>
-                            <option th:each="user : ${userListStat}" th:value="${user.userId}"
-                                    th:text="${user.firstName}+ ' ' + ${user.lastName}">Sashko
+                            <option th:each="user : ${usersList}" th:value="${user.userId}"
+                                    th:text="${user.firstName}+ ' ' + ${user.lastName}">SashkotestBuilder
                             </option>
                         </select>
                         <a th:href="@{/admin/adminStatistic}" href="#"

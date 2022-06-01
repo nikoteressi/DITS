@@ -91,7 +91,15 @@ public class StatisticServiceImpl implements StatisticService {
         List<Statistic> statisticsByUser = repository.getStatisticsByUser(user);
         List<Test> testsPassedByUser = statisticsByUser.stream().map(f -> f.getQuestion().getTest()).distinct().collect(Collectors.toList());
         List<String> namesOfTopicAndTest = getNamesOfTopicAndTest(testsPassedByUser);
-//        Map<String, Integer> attemptsOfPassing = getTestNamesAndAttempts(statisticsByUser, namesOfTopicAndTest);
+        List<List<Statistic>> listStatisticsByTestName = getListStatisticsByTestName(statisticsByUser, namesOfTopicAndTest);
+        return getTestStatisticsByUser(listStatisticsByTestName);
+    }
+
+    @Transactional
+    public List<TestStatisticByUser> getListOfTestsWithStatisticsByUserId(int id) {
+        List<Statistic> statisticsByUser = repository.getStatisticsByUser_UserId(id);
+        List<Test> testsPassedByUser = statisticsByUser.stream().map(f -> f.getQuestion().getTest()).distinct().collect(Collectors.toList());
+        List<String> namesOfTopicAndTest = getNamesOfTopicAndTest(testsPassedByUser);
         List<List<Statistic>> listStatisticsByTestName = getListStatisticsByTestName(statisticsByUser, namesOfTopicAndTest);
         return getTestStatisticsByUser(listStatisticsByTestName);
     }
@@ -116,7 +124,6 @@ public class StatisticServiceImpl implements StatisticService {
         int rightAnswers;
 
             for (List<Statistic> s : listStatisticsByTestName) {
-                rightAnswers = numberOfRightAnswers(s);
                 attempts = s.size();
                 rightAnswers = numberOfRightAnswers(s);
                 topicName = s.stream().map(f -> f.getQuestion().getTest().getTopic().getName()).findFirst().get();

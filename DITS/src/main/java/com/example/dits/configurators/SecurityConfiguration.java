@@ -2,6 +2,7 @@ package com.example.dits.configurators;
 
 import com.example.dits.handlers.CustomSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,22 +19,23 @@ import javax.sql.DataSource;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final CustomSuccessHandler customSuccessHandler;
-
-    private final PasswordEncoder passwordEncoder;
-
     private final DataSource dataSource;
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Autowired
     public SecurityConfiguration(CustomSuccessHandler customSuccessHandler, DataSource dataSource) {
         this.customSuccessHandler = customSuccessHandler;
         this.dataSource = dataSource;
-        passwordEncoder = new BCryptPasswordEncoder();
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws  Exception{
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication().dataSource(dataSource)
-                .passwordEncoder(passwordEncoder)
+                .passwordEncoder(passwordEncoder())
                 .usersByUsernameQuery("select login, password, 'true' from users" +
                         " join users_role on users.userId = users_role.userId where login =?")
                 .authoritiesByUsernameQuery("select login, roleName from users join users_role on users.userId = users_role.userId join role on  +\n" +
@@ -43,12 +45,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                    .antMatchers("/", "/login").permitAll()
-                    .antMatchers("/","/user/**").hasRole("USER")
-                    .antMatchers("/","/admin/**").hasRole("ADMIN")
+                .antMatchers("/", "/login").permitAll()
+                .antMatchers("/", "/user/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/", "/admin/**").hasRole("ADMIN")
                 .and().formLogin().loginPage("/login")
-                    .successHandler(customSuccessHandler)
-                    .usernameParameter("login").passwordParameter("password").failureUrl("/login?fail=1")
+                .successHandler(customSuccessHandler)
+                .usernameParameter("login").passwordParameter("password").failureUrl("/login?fail=1")
                 .and().csrf()
                 .and().exceptionHandling().accessDeniedPage("/accessDenied");
     }

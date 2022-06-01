@@ -21,7 +21,7 @@ let data = [
 const themeSelect = document.getElementById('themeSelect');
 const resultTableBody = document.getElementById('resultTableBody');
 const dataContainer = document.getElementById('dataContainer');
-const sortTestsButton = document.getElementById('sortTestsButton');
+// const sortTestsButton = document.getElementById('sortTestsButton');
 let isReverseTest = false;
 const baseUrl = "http:localhost:8080";
 
@@ -39,10 +39,10 @@ function updateResult(data) {
     const reversedData = isReverseTest ? [...data].reverse() : [...data];
     dataContainer.classList.add('active');
     resultTableBody.innerHTML = `
-    ${reversedData.map(({testName, count, avgProc, questionStatistics}, index) => {
+    ${reversedData.map(({testName, count, avgProc}, index) => {
         return `
       <div class="container test" data-id="${index}">
-        <div class="row result-row" data-bs-toggle="collapse" href='#test${index}'>
+        <div class="row result-row" href='#test${index}'>
           <div class="col-1 text-start d-none d-md-block">${index + 1}</div>
           <div class="col-md-8 col-sm-7 text-start">${testName}</div>
           <div class="col-md-3 col-sm-5 text-center d-flex justify-content-between">
@@ -61,10 +61,10 @@ themeSelect.addEventListener('change', async ({target}) => {
     dataContainer.classList.remove('active');
     try {
         const userId = target.value;
-        const url = new URL(baseUrl + "/admin/getUserTestsStatistic");
+        const url = new URL(baseUrl + "/admin/get-users-statistic");
         const params = {id: userId};
         url.search = new URLSearchParams(params).toString();
-        const response = await fetch(url);
+        const response = await fetch(url.toString());
         const result = await response.json();
         updateResult(result);
     } catch (err) {

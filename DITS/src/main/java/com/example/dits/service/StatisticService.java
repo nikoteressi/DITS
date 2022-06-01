@@ -14,6 +14,7 @@ public interface StatisticService {
     List<Statistic> findAll();
     void saveMapOfStat(Map<String, Statistic> map, String endTest);
     List<TestStatisticByUser> getListOfTestsWithStatisticsByUser(User user);
+    List<TestStatisticByUser> getListOfTestsWithStatisticsByUserId(int id);
     List<Statistic> getUserStatistics(User user);
     List<Statistic> getStatisticByQuestion(Question question);
     void saveStatisticsToDB(List<Statistic> statistics);

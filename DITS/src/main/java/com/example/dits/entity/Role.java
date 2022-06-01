@@ -26,7 +26,6 @@ public class Role {
     @JoinTable(name = "users_role"
             , joinColumns = @JoinColumn(name = "roleId"),
     inverseJoinColumns = @JoinColumn(name = "userId"))
-    @ToString.Exclude
     private List<User> users;
 
 

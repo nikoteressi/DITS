@@ -15,4 +15,6 @@ public interface StatisticRepository extends JpaRepository<Statistic,Integer>, C
     void removeStatisticByUser_UserId(int userid);
     @Override
     void deleteAll();
+
+    List<Statistic> getStatisticsByUser_UserId(int id);
 }

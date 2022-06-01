@@ -1,0 +1,29 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="/fragments/header"></div>
+
+<main>
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="d-flex w-50 justify-content-between mt-5">
+                    <h1 class="users__title">List of users</h1>
+                    <button type="button" class="add-user__button" data-bs-target="#addUserModal"
+                            id="createNewTestButton"
+                            data-bs-toggle="modal">
+                        <img class="col-auto icon-btn" src="../../static/img/add-icon.svg" alt="add new test"
+                             th:src="@{/img/add-icon.svg}">
+                        <span class="col-auto detail-card__text">Add new user</span>
+                    </button>
+                </div>
+                    <div class="detail__list" id="detailList">
+
+                    </div>
+            </div>
+        </div>
+    </section>
+</main>
+<div th:replace="/fragments/footer"></div>
+<div th:replace="/fragments/modals"></div>
+
+<script th:src="@{/js/user-editor.js}"></script>
+</html>
